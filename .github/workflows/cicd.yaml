@@ -25,15 +25,6 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
-      - name: Deploy to Kubernetes
-        uses: tale/kubectl-action@v1
-        with:
-          base64-kube-config: ${{ secrets.KUBE_CONFIG }}
-      - name: Restart deployments
-        run: |
-          kubectl rollout restart deployment/backend
-          kubectl rollout restart deployment/frontend
-
       - name: Build and Push Frontend
         uses: docker/build-push-action@v5
         with:
@@ -41,5 +32,20 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/frontend:latest
 
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Configure kubectl
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl rollout restart deployment/frontend
+          kubectl rollout restart deployment/backend
+          kubectl rollout status deployment/frontend
+          kubectl rollout status deployment/backend
+
       - name: Done
-        run: echo "Images pushed successfully!"
+        run: echo "Deployed successfully!"
