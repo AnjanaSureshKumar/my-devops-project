@@ -25,6 +25,15 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
+      - name: Deploy to Kubernetes
+        uses: tale/kubectl-action@v1
+        with:
+          base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+      - name: Restart deployments
+        run: |
+          kubectl rollout restart deployment/backend
+          kubectl rollout restart deployment/frontend
+
       - name: Build and Push Frontend
         uses: docker/build-push-action@v5
         with:
