@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: YOUR_DOCKERHUB_USERNAME/backend:latest
+        image: anjanasureshkumar/backend:latest
         ports:
         - containerPort: 3000
         env:

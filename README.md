@@ -127,3 +127,4 @@ kubectl delete -f k8s/
 # Minikube dashboard
 minikube dashboard
 ```
+# pipeline test
