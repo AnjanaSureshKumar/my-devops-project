@@ -15,7 +15,7 @@ mongoose.connect(MONGO_URI)
 const ItemSchema = new mongoose.Schema({
   name: { type: String, required: true },
   createdAt: { type: Date, default: Date.now }
-})
+});
 const Item = mongoose.model('Item', ItemSchema);
 
 app.get('/', (req, res) => res.json({ status: 'Backend is running!', version: '2.0.0' }));
@@ -50,5 +50,7 @@ app.delete('/items/:id', async (req, res) => {
   }
 });
 
+// In backend/server.js — add this line
+this is not valid javascript ← intentional error
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
