@@ -6,6 +6,9 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
+      - name: Force failure test
+        run: exit 1
+
       - name: Checkout
         uses: actions/checkout@v4
 

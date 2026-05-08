@@ -49,8 +49,5 @@ app.delete('/items/:id', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-// In backend/server.js — add this line
-this is not valid javascript ← intentional error
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
